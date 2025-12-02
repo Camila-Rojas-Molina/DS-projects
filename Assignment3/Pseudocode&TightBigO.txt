@@ -1,0 +1,115 @@
+/---------------------------------------------------------------
+Pseudocode for the following methods
+/---------------------------------------------------------------
+replaceKey(e, k)
+
+function replaceKey(e, k):
+    if e == null: throw error
+    oldKey = e.key
+    idx = e.index
+    if idx < 0 or idx >= size or A[idx] != e:
+        throw error // entry not in this APQ
+    e.key = k
+    // After changing key, the entry may need to move up or down.
+    // We decide by comparing new key to old using the mode comparator.
+    if modeFactor * (k.compareTo(oldKey)) < 0:
+        // moved in direction that favors heap parent -> heapifyUp
+        heapifyUp(idx)
+    else if modeFactor * (k.compareTo(oldKey)) > 0:
+        // moved in opposite direction -> heapifyDown
+        heapifyDown(idx)
+    // if equal: nothing to do
+    return oldKey
+
+
+
+
+state()
+
+function state():
+    return mode  // either "MIN" or "MAX"
+
+
+
+
+peekAt(n)
+
+(returns n-th element in order under current mode without removing anything. n is 1-based: peekAt(1) = top())
+
+function peekAt(n):
+    if n < 1 or n > size: throw error "out of bounds"
+    // Strategy: perform a non-destructive partial traversal using a temporary
+    // small index-heap that stores indices into A. We will not modify A.
+    // Simpler approach (safe): clone APQ into a temporary APQ copy and removeTop n-1 times.
+    temp = shallowCloneOfThisAPQ()  // clone entries (new Entry objects) and array
+    for i in 1 .. n-1:
+        temp.removeTop()
+    return temp.top()
+
+
+Notes: Clone must produce new Entry objects whose .index refer to positions in temp's array — ensures operations on temp don't touch original entries.
+
+
+
+
+merge(otherAPQ)
+
+merge must insert all entries from otherAPQ into this and keep this's current mode. Efficient approach: append other's entries' key/value to this array, 
+set indices appropriately, then perform a linear-time heapify (bottom-up) on the combined array.
+
+function merge(other):
+    if other == null: return
+    // ensure other is APQ; we'll take all its entries no copy of Entry objects (must create new Entry objects)
+    total = this.size + other.size
+    while capacity < total:
+        grow capacity
+    // append clones of other's entries
+    for i in 0 .. other.size-1:
+        eOther = other.A[i]
+        newE = new Entry(eOther.key, eOther.value)
+        newE.index = this.size
+        this.A[this.size] = newE
+        this.size = this.size + 1
+    // Now rebuild heap in O(n) time using bottom-up heapify
+    for i from parent(this.size-1) down to 0:
+        heapifyDown(i)
+    // result maintains this.mode (we do not change this.mode)
+
+
+
+
+
+/---------------------------------------------------------------/
+Tight Big-O time complexities (with explanations)
+/---------------------------------------------------------------/
+
+I provide complexities in terms of n = size() of the APQ and k = the n passed to peekAt(n) (I'll call it k to avoid confusion):
+
+toggle() — O(n) time.
+
+Why: toggling changes the comparator direction. 
+The easiest correct way to switch between min and max while preserving heap property is to flip modeFactor and then rebuild the heap 
+by running bottom-up heapifyDown from parent(last) to 0. Bottom-up heapify over n elements is O(n). (Alternative would be to invert keys 
+if they were numeric and sign-change worked, but we must support generic Comparable, so rebuilding is required.)
+
+remove(e) — O(log n) time (worst-case).
+
+Why: removing an arbitrary entry e is done by swapping e with the last element, decreasing the size by one, and then running either heapifyUp 
+or heapifyDown from the swapped index. Each of those heap operations costs O(log n). Checking/removing is O(1) aside from heapification.
+
+peekAt(k) — O(k log k) time in the method I implemented (better written as O(k log k + 1) but asymptotically O(k log k)). Another slightly 
+different bound is O(k log k + n) if you clone by copying the whole array first — cloning is O(n).
+
+Why: the implementation clones the APQ (O(n) to copy the array — but that is a single O(n) overhead) and then calls removeTop() k-1 times; 
+each removeTop() is O(log n) in the clone heap of size ≤ n. If k is much smaller than n, the dominant cost is ~O(k log n). If k is Θ(n), 
+cost is O(n log n). Using the incremental index-heap approach (pushing children) gives O(k log k) without copying the whole heap; 
+either approach is acceptable but the clone + repeated removeTop approach is simpler and easy to reason about: overall O(n + k log n). 
+For clarity: using a candidate index heap (push root, then push children of popped elements) yields O(k log k).
+
+Best practical answer: O(min(n + k log n, k log k)) depending on which algorithm you implement.
+The provided code uses the clone + repeated removeTop, so complexity is O(n + k log n). (If we implement candidate-index heap, it is O(k log k).)
+
+merge(otherAPQ) — O(n + m) where n is size(this) and m is size(other).
+
+Why: efficient merge is done by appending all entries from other to the internal array (O(m) copies, with occasional array resizing but 
+amortized O(m)) and then performing a bottom-up heapify on the combined array; bottom-up heapify is O(n + m). So total is O(n + m).
