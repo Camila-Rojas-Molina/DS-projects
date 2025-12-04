@@ -30,8 +30,6 @@ function state():
     return mode  // either "MIN" or "MAX"
 
 
-
-
 peekAt(n)
 
 (returns n-th element in order under current mode without removing anything. n is 1-based: peekAt(1) = top())
@@ -106,8 +104,8 @@ cost is O(n log n). Using the incremental index-heap approach (pushing children)
 either approach is acceptable but the clone + repeated removeTop approach is simpler and easy to reason about: overall O(n + k log n). 
 For clarity: using a candidate index heap (push root, then push children of popped elements) yields O(k log k).
 
-Best practical answer: O(min(n + k log n, k log k)) depending on which algorithm you implement.
-The provided code uses the clone + repeated removeTop, so complexity is O(n + k log n). (If we implement candidate-index heap, it is O(k log k).)
+Best answer: O(min(n + k log n, k log k)) depending on which algorithm you implement.
+This uses the clone + repeated removeTop, so complexity is O(n + k log n). (If we implement candidate-index heap, it is O(k log k).)
 
 merge(otherAPQ) — O(n + m) where n is size(this) and m is size(other).
 
