@@ -1,13 +1,12 @@
-// Camila Rojas Molina - 40321494
 // COMP 352 – Programming Assignment 1
 // TetranacciTail.java – Tail recursive version
+package FinalTetranacci;
 
 public class TetranacciTail {
-
     public static long tetranacci(int n) {
         return tetranacciHelper(n, 0, 0, 0, 1);
     }
-
+    
     private static long tetranacciHelper(int n, long a, long b, long c, long d) {
         if (n == 0) return a;
         if (n == 1) return b;
