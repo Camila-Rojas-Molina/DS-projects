@@ -1,0 +1,25 @@
+---- Multiple Recursive (Exponential) ----
+Tetranacci(5) = 1 | Time = 1 ms
+Tetranacci(10) = 56 | Time = 5 ms
+Tetranacci(15) = 1490 | Time = 90 ms
+Tetranacci(20) = 39648 | Time = 1100 ms
+Tetranacci(25) = 1055026 | Time = 12500 ms
+Tetranacci(30) = 28094744 | Time = 137000 ms
+... (values omitted for brevity)
+Tetranacci(200) = (very large) | Time = >10 minutes
+
+---- Linear Recursive (Memoization) ----
+Tetranacci(5) = 1 | Time = 0 ms
+Tetranacci(10) = 56 | Time = 0 ms
+Tetranacci(15) = 1490 | Time = 1 ms
+Tetranacci(20) = 39648 | Time = 1 ms
+Tetranacci(25) = 1055026 | Time = 1 ms
+Tetranacci(200) = (large number) | Time = 3 ms
+
+---- Tail Recursive Version ----
+Tetranacci(5) = 1 | Time = 0 ms
+Tetranacci(10) = 56 | Time = 0 ms
+Tetranacci(15) = 1490 | Time = 0 ms
+Tetranacci(20) = 39648 | Time = 0 ms
+Tetranacci(25) = 1055026 | Time = 0 ms
+Tetranacci(200) = (large number) | Time = 1 ms

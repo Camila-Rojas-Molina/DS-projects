@@ -1,0 +1,21 @@
+EXPLANATION – PART A & B
+
+A) Complexity Analysis
+----------------------
+The first algorithm (TetranacciMultiple) is exponential because every call
+generates 4 more recursive calls, resulting in roughly O(4^n) growth.
+It repeatedly recalculates the same subproblems multiple times.
+
+The second algorithm (TetranacciLinear) is linear O(n) because it stores
+previously computed results in a memoization structure, preventing repeated
+computation of the same subproblems.
+
+B) Tail Recursion
+-----------------
+Neither of the first two algorithms is tail-recursive because each performs
+additional computations after recursive calls.
+
+A tail-recursive version can be designed by carrying forward the last four
+computed values as parameters (a, b, c, d). Each call passes updated values
+forward without pending operations, allowing the compiler to optimize it into
+an iterative process.
