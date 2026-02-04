@@ -1,6 +1,6 @@
 // COMP 352 – Programming Assignment 1
 // TetranacciTail.java – Tail recursive version
-package FinalTetranacci;
+package finaltetranacci;
 
 public class TetranacciTail {
     public static long tetranacci(int n) {

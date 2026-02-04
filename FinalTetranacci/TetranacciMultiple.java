@@ -3,7 +3,7 @@
 // & Daniel Tehrani ID:40100248, Section X
 // COMP 352 WINTER 26 – Programming Assignment 1
 // *******************************************************************
-package FinalTetranacci;
+package finaltetranacci;
 
 public class TetranacciMultiple {
 // n being the position in the tetranacci sequence:

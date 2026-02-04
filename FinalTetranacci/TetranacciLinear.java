@@ -1,7 +1,7 @@
 // Camila Rojas Molina et Daniel Tehrani - 40321494 40100248
 // COMP 352 WINTER – Programming Assignment 1
 // TetranacciLinear.java – Linear recursive with memoization
-package FinalTetranacci;
+package finaltetranacci;
 import java.util.HashMap;
 public class TetranacciLinear {
     private static HashMap<Integer, Long> memo = new HashMap<>();
