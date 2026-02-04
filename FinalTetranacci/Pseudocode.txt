@@ -1,0 +1,60 @@
+Assignment 1 - Tetranacci
+Name and ID: Camila Rojas (40321494) Section S
+Name and ID: Daniel Tehrani (40100248) Section X
+COMP 352 Winter 2026
+
+Multiple Tetranacci
+
+Algorithm MultipleTetr(k)
+Input: Nonnegative integer k
+Output: the kth Tetranacci number Fk
+
+if k <= 2 then 
+    return 0
+if k = 3
+    return 1
+else
+    return MultipleTetr(k-1) + MultipleTetr(k-2) + MultipleTetr(k-3) + MultipleTetr(k-4)
+
+---------------------------------
+
+Linear Tetranacci (with memoization)
+
+Algorithm LinearTetr(k)
+Input: Nonnegative integer k
+Output: the kth Tetranacci number Fk
+
+create hashmap
+if k has already been calculated then
+    return result from hashmap
+if k <= 2 then
+    return 0
+if k = 3
+    return 1
+else
+    return MultipleTetr(k-1) + MultipleTetr(k-2) + MultipleTetr(k-3) + MultipleTetr(k-4)
+store value in hashmap
+
+---------------------------------
+
+Tail Tetranacci
+
+Algorithm TailTetr(k)
+Input: Nonnegative integer k
+Output: the kth Tetranacci number Fk
+
+FUNCTION Tetranacci(n):
+    RETURN TetranacciHelper(n, 0, 0, 0, 1)
+
+FUNCTION TetranacciHelper(n, a, b, c, d):
+    IF n == 0:
+        RETURN a
+    IF n == 1:
+        RETURN b
+    IF n == 2:
+        RETURN c
+    IF n == 3:
+        RETURN d
+    RETURN TetranacciHelper(n - 1, b, c, d, a + b + c + d)
+
+---------------------------------
