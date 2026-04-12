@@ -1,3 +1,4 @@
+// LIFO: LAST-In, First-Out
 package DataStruturesTest;
 import java.util.Stack;
 
