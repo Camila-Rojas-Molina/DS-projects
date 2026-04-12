@@ -14,8 +14,8 @@ public class StackDemo {
 
         System.out.println(top);
         System.out.println(stack);
-        stack.search("hola");
-        System.out.println(stack.empty());
+        System.out.println(stack.search("hola"));
+        //System.out.println(stack.empty());
         
     }
 }
@@ -24,6 +24,6 @@ public class StackDemo {
     2. Bakctracking (maze, file directories)
     3. Browser navigations, back and forth
     4. calling functions (call stack)
-
+//search= find a element and return index
 
 */
