@@ -18,3 +18,11 @@ public class StackDemo {
         
     }
 }
+/*USES
+    1. Undo/redo text editors
+    2. Bakctracking (maze, file directories)
+    3. Browser navigations, back and forth
+    4. calling functions (call stack)
+
+
+*/
